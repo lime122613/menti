@@ -1,0 +1,236 @@
+/* ============================================
+   Mentimeter Clone - 다크 테마 커스텀 CSS
+   ============================================ */
+
+/* 전체 배경 */
+.stApp {
+    background: linear-gradient(135deg, #0f0c29, #1a1a2e, #16213e);
+    color: #e0e0e0;
+}
+
+/* 메인 컨테이너 */
+.main .block-container {
+    padding: 2rem 3rem;
+    max-width: 1200px;
+}
+
+/* 헤더 타이틀 */
+h1 {
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem !important;
+}
+
+h2, h3 {
+    color: #a78bfa !important;
+    font-weight: 600 !important;
+}
+
+/* 카드 스타일 */
+.metric-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    transition: transform 0.2s;
+}
+.metric-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+.metric-card .value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #667eea;
+}
+.metric-card .label {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+/* 참여 코드 디스플레이 */
+.code-display {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+    margin: 1rem 0;
+}
+.code-display .code-text {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 0.5rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-family: 'Courier New', monospace;
+}
+.code-display .code-label {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 질문 카드 (참여자 모드) */
+.question-card {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.question-card .question-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f3f4f6;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+/* 성공 메시지 */
+.success-banner {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 2rem 0;
+    box-shadow: 0 10px 40px rgba(56, 239, 125, 0.2);
+}
+
+/* 응답 카드 (단답형 텍스트) */
+.response-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #667eea;
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #d1d5db;
+    transition: background 0.2s;
+}
+.response-card:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* 응답 배지 */
+.count-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 사이드바 스타일 */
+.css-1d391kg, [data-testid="stSidebar"] {
+    background: rgba(10, 10, 30, 0.8) !important;
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
+}
+[data-testid="stSidebar"] .stMarkdown {
+    color: #d1d5db;
+}
+
+/* 버튼 스타일 */
+.stButton > button {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+}
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
+}
+
+/* 위험 버튼 (초기화) */
+.danger-btn > button {
+    background: linear-gradient(135deg, #f093fb, #f5576c) !important;
+}
+
+/* 입력 필드 */
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f3f4f6 !important;
+    border-radius: 10px !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* 라디오버튼 */
+.stRadio label {
+    color: #d1d5db !important;
+    font-size: 1.05rem !important;
+}
+.stRadio [data-testid="stMarkdownContainer"] p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #a78bfa !important;
+}
+
+/* 슬라이더 */
+.stSlider [data-baseweb="slider"] {
+    padding: 10px 0;
+}
+
+/* 구분선 */
+hr {
+    border-color: rgba(255,255,255,0.1) !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* 정보 박스 */
+.stInfo {
+    background: rgba(102, 126, 234, 0.1) !important;
+    border: 1px solid rgba(102, 126, 234, 0.3) !important;
+    border-radius: 10px !important;
+    color: #a78bfa !important;
+}
+
+/* 경고 박스 */
+.stWarning {
+    background: rgba(251, 191, 36, 0.1) !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
+    border-radius: 10px !important;
+}
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding: 1rem 1rem;
+    }
+    h1 { font-size: 2rem !important; }
+    .code-display .code-text { font-size: 2.5rem; }
+    .question-card .question-text { font-size: 1.4rem; }
+}

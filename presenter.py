@@ -112,23 +112,60 @@ def render_slider_chart(responses):
     st.plotly_chart(fig, use_container_width=True)
 
 
+def get_korean_font_path() -> str | None:
+    """한글 폰트 경로 반환 - 없으면 자동 다운로드"""
+    import os, urllib.request
+
+    # 1순위: Streamlit Cloud / Ubuntu 나눔폰트
+    candidates = [
+        "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
+        "/usr/share/fonts/truetype/nanum/NanumBarunGothic.ttf",
+        "/usr/share/fonts/nanum/NanumGothic.ttf",
+        # macOS
+        "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
+        # Windows
+        "C:/Windows/Fonts/malgun.ttf",
+        "C:/Windows/Fonts/NanumGothic.ttf",
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+
+    # 2순위: 로컬 캐시에 다운로드
+    local_path = "/tmp/NanumGothic.ttf"
+    if os.path.exists(local_path):
+        return local_path
+
+    try:
+        url = (
+            "https://github.com/google/fonts/raw/main/ofl/"
+            "nanumgothic/NanumGothic-Regular.ttf"
+        )
+        urllib.request.urlretrieve(url, local_path)
+        return local_path
+    except Exception:
+        return None
+
+
 def render_wordcloud(responses):
-    """워드클라우드 시각화"""
+    """워드클라우드 시각화 (한글 지원)"""
     texts = " ".join([r["answer"] for r in responses if r["answer"].strip()])
     if not texts.strip():
         st.info("💬 아직 응답이 없습니다.")
         return
 
-    wc = WordCloud(
-        width=900, height=450,
-        background_color=None, mode="RGBA",
-        colormap="cool",
-        max_words=80,
-        prefer_horizontal=0.7,
-        font_path=None,  # 한글 폰트가 있으면 경로 지정
-        collocations=False,
-    )
+    font_path = get_korean_font_path()
+
     try:
+        wc = WordCloud(
+            width=900, height=450,
+            background_color=None, mode="RGBA",
+            colormap="cool",
+            max_words=80,
+            prefer_horizontal=0.7,
+            font_path=font_path,   # 한글 폰트 자동 적용
+            collocations=False,
+        )
         wc.generate(texts)
         fig, ax = plt.subplots(figsize=(9, 4.5))
         fig.patch.set_alpha(0)
@@ -140,14 +177,20 @@ def render_wordcloud(responses):
         plt.close(fig)
         buf.seek(0)
         st.image(buf, use_container_width=True)
-    except Exception as e:
-        # 한글 처리 실패 시 단어 빈도 차트로 대체
+
+        if not font_path:
+            st.caption("⚠️ 한글 폰트를 불러오지 못했습니다. 아래 단어 빈도 차트를 참고하세요.")
+            raise Exception("no font")
+
+    except Exception:
+        # 폴백: 단어 빈도 가로 막대 차트
         words = texts.split()
         word_counts = Counter(words).most_common(15)
         if word_counts:
             df = pd.DataFrame(word_counts, columns=["단어", "빈도"])
             fig = px.bar(df, x="빈도", y="단어", orientation="h",
-                         color="빈도", color_continuous_scale=["#667eea", "#f093fb"])
+                         color="빈도",
+                         color_continuous_scale=["#667eea", "#f093fb"])
             fig.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(255,255,255,0.03)",
@@ -338,7 +381,7 @@ def render_presenter():
 
         with col_code:
             # QR코드 + 참여 코드
-            audience_url = f"?mode=audience"
+            audience_url = "https://livepoll.streamlit.app/?mode=audience"
             qr_b64 = generate_qr_code(audience_url)
             
             st.markdown(f"""
